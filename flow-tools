@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+
+/*
+* This file is part of the Flow Tools utility.
+*
+* (c) Vincent Touzet <vincent.touzet@gmail.com>
+*
+* This source file is subject to the MIT license that is bundled
+* with this source code in the file LICENSE.
+*/
+
+/**
+* @author Vincent Touzet <vincent.touzet@gmail.com>
+*/
+
+// installed via composer?
+require_once __DIR__.'/vendor/autoload.php';
+
+
+use FlowTools\Console\Application;
+use Symfony\Component\Debug\Debug;
+
+Debug::enable();
+
+$application = new Application();
+$application->run();

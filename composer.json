@@ -1,0 +1,23 @@
+{
+    "name": "vincet/flow-tools",
+    "description": "Dependency Manager",
+    "keywords": ["flow", "convert"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vincent Touzet",
+            "email": "vincent.touzet@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/console": "~2.3@dev",
+        "symfony/options-resolver": "2.3@dev",
+        "symfony/debug": "2.3.*@dev",
+        "sonata-project/exporter": "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "FlowTools": "src/" }
+    }
+}
