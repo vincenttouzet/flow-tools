@@ -12,9 +12,10 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "symfony/console": "~2.3@dev",
-        "symfony/options-resolver": "2.3@dev",
-        "symfony/debug": "2.3.*@dev",
+        "symfony/console": "v2.3.1",
+        "symfony/options-resolver": "v2.3.0",
+        "symfony/debug": "v2.3.1",
+        "symfony/finder": "v2.3.0",
         "sonata-project/exporter": "dev-master"
     },
     "autoload": {

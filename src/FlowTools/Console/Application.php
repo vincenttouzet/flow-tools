@@ -13,6 +13,7 @@ namespace FlowTools\Console;
 
 use Symfony\Component\Console\Application as BaseApplication;
 use FlowTools\Console\Command\ConvertCommand;
+use FlowTools\Console\Command\CompileCommand;
 
 class Application extends BaseApplication
 {
@@ -21,6 +22,7 @@ class Application extends BaseApplication
         parent::__construct('Flow Tools', '0.1-DEV');
 
         $this->add(new ConvertCommand());
+        $this->add(new CompileCommand());
     }
 
     public function getLongVersion()
