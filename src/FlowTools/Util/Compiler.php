@@ -15,8 +15,15 @@ use Symfony\Component\Finder\Finder;
 
 class Compiler
 {
+    /**
+     * compile into phar file
+     *
+     * @param string $pharFile
+     *
+     * @return void
+     */
     public function compile($pharFile = 'flow-tools.phar')
-    {        
+    {
         if (file_exists($pharFile)) {
             unlink($pharFile);
         }
@@ -38,18 +45,16 @@ class Compiler
 
         $phar->stopBuffering();
 
-        // $phar->compressFiles(\Phar::GZ);
-
         unset($phar);
 
         chmod($pharFile, 0777);
     }
 
     /**
-* Remove the shebang from the file before add it to the PHAR file.
-*
-* @param \Phar $phar PHAR instance
-*/
+     * Remove the shebang from the file before add it to the PHAR file.
+     *
+     * @param \Phar $phar PHAR instance
+     */
     protected function addFlowTools(\Phar $phar)
     {
         $content = file_get_contents(__DIR__ . '/../../../flow-tools');
@@ -58,11 +63,21 @@ class Compiler
         $phar->addFromString('flow-tools', $content);
     }
 
+    /**
+     * Get the phar stub
+     *
+     * @return string
+     */
     protected function getStub()
     {
         return "#!/usr/bin/env php\n<?php Phar::mapPhar('flow-tools.phar'); require 'phar://flow-tools.phar/flow-tools'; __HALT_COMPILER();";
     }
 
+    /**
+     * Get the license
+     *
+     * @return string
+     */
     protected function getLicense()
     {
         return '
@@ -76,6 +91,11 @@ class Compiler
 */';
     }
 
+    /**
+     * Get files
+     *
+     * @return array
+     */
     protected function getFiles()
     {
         $iterator = Finder::create()->files()->exclude('Tests')->name('*.php')->in(array('vendor', 'src'));
