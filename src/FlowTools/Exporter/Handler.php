@@ -15,4 +15,30 @@ use Exporter\Handler as BaseHandler;
 
 class Handler extends BaseHandler
 {
+    protected $nbEntries = 0;
+
+    /**
+     * @return void
+     */
+    public function export()
+    {
+        $this->writer->open();
+
+        foreach ($this->source as $data) {
+            $this->writer->write($data);
+            $this->nbEntries++;
+        }
+
+        $this->writer->close();
+    }
+
+    /**
+     * Get the number of rows exported
+     *
+     * @return integer
+     */
+    public function getNbEntries()
+    {
+        return $this->nbEntries;
+    }
 }

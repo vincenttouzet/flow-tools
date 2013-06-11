@@ -84,10 +84,8 @@ EOF
             throw new \RuntimeException(sprintf('The file "%s" already exist.', $input->getArgument('output')));
         }
         // check writable output
-        if (!touch($input->getArgument('output'))) {
+        if (!is_writable(dirname($input->getArgument('output')))) {
             throw new \RuntimeException(sprintf('The file "%s" is not writable.', $input->getArgument('output')));
-        } else {
-            unlink($input->getArgument('output'));
         }
         $source = Factory::create(
             array(
@@ -119,7 +117,9 @@ EOF
                 'columns_type' => null,
             )
         );
-        Handler::create($source, $writer)->export();
+        $handler = Handler::create($source, $writer);
+        $handler->export();
+        $output->writeln(sprintf('%d entries exported', $handler->getNbEntries()));
     }
 
     /**
