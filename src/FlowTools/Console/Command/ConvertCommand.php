@@ -54,6 +54,20 @@ class ConvertCommand extends Command
             )->setHelp(
 <<<EOF
 The <info>%command.name%</info> command convert a flow to another.
+
+For example to export a csv file into json:
+    <info>php flow-tools %command.name% my_file.csv my_export.json</info>
+
+The <comment>--in</comment> and <comment>--out</comment> options define the expected input / output types
+    <info>php flow-tools %command.name% my_file.csv my_export.json --in=csv --out=json</info>
+        or in a shorter way:
+    <info>php flow-tools %command.name% my_file.csv my_export.json -i csv -o json</info>
+The available types are:
+    * <comment>csv</comment> (input/output)
+    * <comment>xml</comment> (input/output)
+    * <comment>excel</comment> (input/output)
+    * <comment>json</comment> (input)
+    * <comment>xls</comment> (input)
 EOF
             );
     }
