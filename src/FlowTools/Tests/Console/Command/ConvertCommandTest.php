@@ -120,6 +120,40 @@ SAV42,"Mélangeur à tout faire",19.90';
         );
     }
 
+    public function testExcelColumnsTypeOptionAll()
+    {
+        $this->commandTester->execute(
+            array(
+                'command' => $this->command->getName(),
+                'input' => $this->filenameIn,
+                'output' => $this->filenameOut,
+                '--out' => 'excel',
+                '--excel-column-types' => 'Number',
+            )
+        );
+
+        $fileContents = file_get_contents($this->filenameOut);
+        preg_match_all('/Type="Number"/', $fileContents, $matches);
+        $this->assertEquals(6, count($matches[0]));
+    }
+
+    public function testExcelColumnsTypeOptionSpecific()
+    {
+        $this->commandTester->execute(
+            array(
+                'command' => $this->command->getName(),
+                'input' => $this->filenameIn,
+                'output' => $this->filenameOut,
+                '--out' => 'excel',
+                '--excel-column-types' => 'price:Number',
+            )
+        );
+
+        $fileContents = file_get_contents($this->filenameOut);
+        preg_match_all('/Type="Number"/', $fileContents, $matches);
+        $this->assertEquals(2, count($matches[0]));
+    }
+
     public function tearDown()
     {
         unlink($this->filenameIn);

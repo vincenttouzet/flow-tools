@@ -50,6 +50,8 @@ class ConvertCommand extends Command
                     // Xml
                     new InputOption('xml-element-main', '', InputOption::VALUE_REQUIRED, 'Main element', 'datas'),
                     new InputOption('xml-element-child', '', InputOption::VALUE_REQUIRED, 'Child element', 'data'),
+                    // XmlExcel
+                    new InputOption('excel-column-types', '', InputOption::VALUE_REQUIRED, 'Columns type for the XmlExcel output', null),
                 )
             )->setHelp(
 <<<EOF
@@ -68,6 +70,14 @@ The available types are:
     * <comment>excel</comment> (input/output)
     * <comment>json</comment> (input)
     * <comment>xls</comment> (input)
+
+The <comment>--excel-column-types</comment> option customize the cell types for the excel output.
+You can define all columns to have the String type:
+    <info>php flow-tools %command.name% my_file.csv my_export.xml -i csv -o excel --excel-column-types=String</info>
+You can define the type for a specific column:
+    <info>php flow-tools %command.name% my_file.csv my_export.xml -i csv -o excel --excel-column-types=column_name:Number</info>
+To define types for multiple columns:
+    <info>php flow-tools %command.name% my_file.csv my_export.xml -i csv -o excel --excel-column-types=column_name:Number,other_column:String</info>
 EOF
             );
     }
@@ -113,7 +123,6 @@ EOF
                 // xml
                 'main_element' => $input->getOption('xml-element-main'),
                 'child_element' => $input->getOption('xml-element-child'),
-                'columns_type' => null,
             )
         );
         $writer = Factory::create(
@@ -128,12 +137,36 @@ EOF
                 // xml
                 'main_element' => $input->getOption('xml-element-main'),
                 'child_element' => $input->getOption('xml-element-child'),
-                'columns_type' => null,
+                'columns_type' => $this->parseColumnTypes($input->getOption('excel-column-types')),
             )
         );
         $handler = Handler::create($source, $writer);
         $handler->export();
         $output->writeln(sprintf('%d entries exported', $handler->getNbEntries()));
+    }
+
+    /**
+     * Parse the excel-column-types option
+     *
+     * @param string|null $columns_type
+     *
+     * @return mixed
+     */
+    protected function parseColumnTypes($columns_type)
+    {
+        if (!is_null($columns_type) ) {
+            if (strstr($columns_type, ':') !== false
+                || strstr($columns_type, ',') !== false
+            ) {
+                $columnsDefinition = explode(',', $columns_type);
+                $columns_type = array();
+                foreach ($columnsDefinition as $col) {
+                    list($column, $type) = explode(':', $col);
+                    $columns_type[$column] = $type;
+                }
+            }
+        }
+        return $columns_type;
     }
 
     /**
