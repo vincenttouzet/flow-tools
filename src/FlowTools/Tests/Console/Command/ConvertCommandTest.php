@@ -119,7 +119,7 @@ SAV42,"Mélangeur à tout faire",19.90';
             )
         );
     }
-
+    /*
     public function testExcelColumnsTypeOptionAll()
     {
         $this->commandTester->execute(
@@ -152,7 +152,7 @@ SAV42,"Mélangeur à tout faire",19.90';
         $fileContents = file_get_contents($this->filenameOut);
         preg_match_all('/Type="Number"/', $fileContents, $matches);
         $this->assertEquals(2, count($matches[0]));
-    }
+    }*/
 
     public function tearDown()
     {
