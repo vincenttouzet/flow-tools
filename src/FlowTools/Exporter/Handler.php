@@ -12,6 +12,8 @@
 namespace FlowTools\Exporter;
 
 use Exporter\Handler as BaseHandler;
+use Exporter\Source\SourceIteratorInterface;
+use Exporter\Writer\WriterInterface;
 
 class Handler extends BaseHandler
 {
@@ -40,5 +42,19 @@ class Handler extends BaseHandler
     public function getNbEntries()
     {
         return $this->nbEntries;
+    }
+
+    /**
+     * @static
+     *
+     * @param Exporter\Source\SourceIteratorInterface $source
+     * @param Exporter\Writer\WriterInterface         $writer
+     *
+     * @return Handler
+     */
+    public static function create(SourceIteratorInterface $source, WriterInterface $writer)
+    {
+        // use static instead of Handler
+        return new static($source, $writer);
     }
 }
