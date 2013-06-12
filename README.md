@@ -1,6 +1,8 @@
 Flow-Tools
 ==========
 
+[![Build Status](https://travis-ci.org/vincenttouzet/flow-tools.png?branch=master)](https://travis-ci.org/vincenttouzet/flow-tools)
+
 The `flow-tools` is a lightweight CLI to export datas from and to different format.
 
 The source data may be:
@@ -35,4 +37,9 @@ Compile
 You can compile into a phar file with the following command:
 ```
 php flow-tools compile
+```
+
+Note: If you're running php with suhosin you must add phar to the `suhosin.executor.include.whitelist` configuration option.
+```
+suhosin.executor.include.whitelist = phar
 ```
