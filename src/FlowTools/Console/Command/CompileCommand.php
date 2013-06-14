@@ -23,9 +23,11 @@ class CompileCommand extends Command
     {
         $this->setName('compile')
             ->setDescription('Compile application as a phar file')
-            ->setDefinition(array(
-                new InputOption('out', 'o', InputOption::VALUE_REQUIRED, 'output file', 'flow-tools.phar'),
-            ));
+            ->setDefinition(
+                array(
+                    new InputOption('out', 'o', InputOption::VALUE_REQUIRED, 'output file', 'flow-tools.phar'),
+                )
+            );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

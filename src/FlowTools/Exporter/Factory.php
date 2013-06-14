@@ -75,9 +75,10 @@ class Factory
 
     public function createSource()
     {
+        $source = null;
         switch ($this->options['type']) {
             case 'csv':
-                return new CsvSourceIterator(
+                $source = new CsvSourceIterator(
                     $this->options['filename'],
                     $this->options['delimiter'],
                     $this->options['enclosure'],
@@ -86,25 +87,33 @@ class Factory
                 );
                 break;
             case 'xml':
-                return new XmlSourceIterator(
+                $source = new XmlSourceIterator(
                     $this->options['filename']
                 );
                 break;
             case 'excel':
-                return new XmlExcelSourceIterator(
+                $source = new XmlExcelSourceIterator(
                     $this->options['filename'],
                     $this->options['headers']
                 );
                 break;
         }
-        throw new \InvalidArgumentException(sprintf('The type "%s" for source does not exist.', $this->options['type']));
+        if (is_null($source)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'The type "%s" for source does not exist.',
+                    $this->options['type']
+                )
+            );
+        }
+        return $source;
     }
 
     public function createWriter()
     {
         switch ($this->options['type']) {
             case 'csv':
-                return new CsvWriter(
+                $writer = new CsvWriter(
                     $this->options['filename'],
                     $this->options['delimiter'],
                     $this->options['enclosure'],
@@ -113,45 +122,62 @@ class Factory
                 );
                 break;
             case 'xml':
-                return new XmlWriter(
+                $writer = new XmlWriter(
                     $this->options['filename'],
                     $this->options['main_element'],
                     $this->options['child_element']
                 );
                 break;
             case 'excel':
-                return new XmlExcelWriter(
+                $writer = new XmlExcelWriter(
                     $this->options['filename'],
                     $this->options['headers'],
                     $this->options['columns_type']
                 );
                 break;
             case 'json':
-                return new JsonWriter(
+                $writer = new JsonWriter(
                     $this->options['filename']
                 );
                 break;
             case 'xls':
-                return new XlsWriter(
+                $writer = new XlsWriter(
                     $this->options['filename'],
                     $this->options['headers']
                 );
                 break;
         }
-        throw new \InvalidArgumentException(sprintf('The type "%s" for writer does not exist.', $this->options['type']));
+        if (is_null($writer)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'The type "%s" for writer does not exist.',
+                    $this->options['type']
+                )
+            );
+        }
+        return $writer;
     }
 
     public static function create(array $options = array())
     {
         $factory = new Factory($options);
+        $obj = null;
         switch ($factory->getOption('direction')) {
             case 'in':
-                return $factory->createSource();
+                $obj = $factory->createSource();
                 break;
             case 'out':
-                return $factory->createWriter();
+                $obj = $factory->createWriter();
                 break;
         }
-        throw new \InvalidArgumentException(sprintf('The direction "%s" does not exist. Valid direction are [in, out]', $factory->getOption('direction')));
+        if (is_null($obj)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'The direction "%s" does not exist. Valid direction are [in, out]',
+                    $factory->getOption('direction')
+                )
+            );
+        }
+        return $obj;
     }
 }
