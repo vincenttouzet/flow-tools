@@ -111,6 +111,7 @@ class Factory
 
     public function createWriter()
     {
+        $writer = null;
         switch ($this->options['type']) {
             case 'csv':
                 $writer = new CsvWriter(
