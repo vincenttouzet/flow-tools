@@ -15,6 +15,7 @@ use Symfony\Component\Console\Application as BaseApplication;
 use FlowTools\Console\Command\ConvertCommand;
 use FlowTools\Console\Command\CompileCommand;
 use FlowTools\Console\Command\ShowCommand;
+use FlowTools\Console\Command\TransformCommand;
 
 /**
  * FlowTools application
@@ -30,6 +31,7 @@ class Application extends BaseApplication
         $this->add(new ConvertCommand());
         $this->add(new CompileCommand());
         $this->add(new ShowCommand());
+        $this->add(new TransformCommand());
     }
 
     public function getLongVersion()
