@@ -19,6 +19,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use FlowTools\Exporter\Factory;
 use FlowTools\Exporter\Handler;
 
+/**
+ * Convert command
+ *
+ * @author Vincent Touzet <vincent.touzet@gmail.com>
+ */
 class ConvertCommand extends Command
 {
     protected function configure()

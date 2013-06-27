@@ -23,6 +23,11 @@ use Exporter\Writer\XlsWriter;
 use Exporter\Writer\XmlWriter;
 use Exporter\Writer\XmlExcelWriter;
 
+/**
+ * Factory to create SourceIterators or Writers
+ *
+ * @author Vincent Touzet <vincent.touzet@gmail.com>
+ */
 class Factory
 {
     protected $options;

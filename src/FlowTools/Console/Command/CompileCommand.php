@@ -17,6 +17,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use FlowTools\Util\Compiler;
 
+/**
+ * Compile command
+ *
+ * @author Vincent Touzet <vincent.touzet@gmail.com>
+ */
 class CompileCommand extends Command
 {
     protected function configure()

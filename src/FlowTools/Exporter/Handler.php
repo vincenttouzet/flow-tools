@@ -15,6 +15,11 @@ use Exporter\Handler as BaseHandler;
 use Exporter\Source\SourceIteratorInterface;
 use Exporter\Writer\WriterInterface;
 
+/**
+ * Handler for dataflow conversion
+ *
+ * @author Vincent Touzet <vincent.touzet@gmail.com>
+ */
 class Handler extends BaseHandler
 {
     protected $nbEntries = 0;

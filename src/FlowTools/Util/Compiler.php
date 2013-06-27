@@ -13,6 +13,11 @@ namespace FlowTools\Util;
 
 use Symfony\Component\Finder\Finder;
 
+/**
+ * Application compiler
+ *
+ * @author Vincent Touzet <vincent.touzet@gmail.com>
+ */
 class Compiler
 {
     /**
